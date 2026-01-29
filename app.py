@@ -181,67 +181,62 @@ with st.sidebar:
                 st.error(f"Error connecting to Zenith: {e}")
 
 # --- 5. MAIN UI ---
+# --- 5. MAIN UI ---
 st.title("🏔️ Zenith AI Fitness Companion")
 
 if st.session_state.plan:
-    col1, col2 = st.columns([1, 1.5], gap="large")
+    # Top Row: Action Tools (Omnichannel + Meal Swap)
+    # This keeps the layout balanced and puts tools right under the title
+    col_tools1, col_tools2 = st.columns(2, gap="medium")
 
-    with col1:
+    with col_tools1:
         st.markdown('<div class="glass-card">', unsafe_allow_html=True)
         st.subheader("🏢 Omnichannel Training")
-        mode = st.radio("Current Setting", ["Commercial Gym", "Home / Hotel"])
-
-        # Replaced text_input with a multiselect dropdown
+        mode = st.radio("Current Setting", ["Commercial Gym", "Home / Hotel"], horizontal=True)
+        
         equip_list = st.multiselect(
             "Available Gear", 
-            options=[
-                "Bodyweight Only", "Dumbbells", "Resistance Bands", 
-                "Kettlebells", "Pull-up Bar", "Yoga Mat", 
-                "Barbell", "Jump Rope", "Medicine Ball"
-            ],
+            options=["Bodyweight Only", "Dumbbells", "Resistance Bands", "Kettlebells", "Pull-up Bar", "Yoga Mat", "Barbell"],
             default=["Bodyweight Only"]
         )
-
-        # Convert the list to a string so the prompt can read it
-        equip_str = ", ".join(equip_list)
-
+        
         if st.button("Sync Workout Environment"):
             omni_chain = LLMChain(llm=langchain_llm, prompt=PromptTemplate.from_template(omni_template))
-            # Pass the converted string (equip_str) to the chain
             st.session_state.daily_update = omni_chain.run(
                 current_plan=st.session_state.plan, 
                 mode=mode, 
-                equipment=equip_str
+                equipment=", ".join(equip_list)
             )
         st.markdown('</div>', unsafe_allow_html=True)
 
-    with col2:
-        tab1, tab2 = st.tabs(["📅 Master Plan", "🔄 Daily Adjustments"])
+    with col_tools2:
+        st.markdown('<div class="glass-card">', unsafe_allow_html=True)
+        st.subheader("🥪 Smart Meal Swap")
+        meal = st.text_input("Meal to swap?", placeholder="e.g. Tuesday Lunch")
+        st.write("") # Spacer to align with radio buttons
         
-        with tab1:
-            st.markdown(f'<div class="scrollable-response">{st.session_state.plan}</div>', unsafe_allow_html=True)
-        
-        with tab2:
-            if st.session_state.daily_update:
-                st.info("AI Adjustment Active")
-                st.markdown(st.session_state.daily_update)
-            else:
-                st.write("No adjustments made yet. Use the Autopilot or Omnichannel tools.")
+        if st.button("Find Equivalent"):
+            swap_chain = LLMChain(llm=langchain_llm, prompt=PromptTemplate.from_template(swap_template))
+            res = swap_chain.run(current_plan=st.session_state.plan, meal_to_swap=meal, diet_type=d_type)
+            st.session_state.daily_update = res
+        st.markdown('</div>', unsafe_allow_html=True)
 
-            st.markdown("---")
-            st.subheader("🥪 Smart Meal Swap")
-            meal = st.text_input("Meal to swap?", placeholder="e.g. Tuesday Lunch")
-            if st.button("Find Equivalent"):
-                swap_chain = LLMChain(llm=langchain_llm, prompt=PromptTemplate.from_template(swap_template))
-                res = swap_chain.run(current_plan=st.session_state.plan, meal_to_swap=meal, diet_type=d_type)
-                st.success(res)
-
-    # --- CHAT SECTION ---
+    # Bottom Row: The Plans
+    # Using the full width here makes tables much easier to read
+    st.markdown("### 📋 Your Zenith Blueprint")
+    tab1, tab2 = st.tabs(["📅 Master Plan", "🔄 Daily Adjustments"])
+    
+    with tab1:
+        st.markdown(f'<div class="scrollable-response">{st.session_state.plan}</div>', unsafe_allow_html=True)
+    
+    with tab2:
+        if st.session_state.daily_update:
+            st.markdown(f'<div class="scrollable-response">{st.session_state.daily_update}</div>', unsafe_allow_html=True)
+        else:
+            st.info("No adjustments made yet. Use the tools above to modify your plan.")
 
 else:
     st.info("👈 Fill in your details in the sidebar to reach your Zenith.")
 
 st.markdown("---")
 st.caption("Zenith AI | Engineered for Peak Performance")
-
-
