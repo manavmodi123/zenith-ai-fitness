@@ -1,34 +1,31 @@
+# 🏔️ Zenith AI Fitness Companion
 
-# Fitness and Diet Planner - AI-Powered Personalized Plans
+**Zenith AI** is a premium, 2026-standard fitness and nutrition agent built to help users reach their peak physical potential. Unlike static planners, Zenith adapts in real-time to your equipment, energy levels, and dietary preferences.
 
-This project is an AI-powered Fitness and Diet Planner that generates customized workout and diet plans based on user inputs. The application uses the **llama-3.3-70b-versatile model** hosted on **Groq Cloud** to create personalized plans and features an interactive chat interface to engage users and refine their plans.
 
-## Features
+## 🚀 Key Features
 
-- **Personalized Plans**: Generate customized workout and diet plans based on your inputs such as current weight, target weight, workout type, and more.
-- **Interactive Chat**: Ask questions about your generated plan and get helpful responses from the AI assistant.
-- **User-Friendly Interface**: Built with **Streamlit**, this application allows you to enter your details in an easy-to-use form and view your personalized plans.
+- **Metabolic Autopilot**: Dynamically pivots your workout and diet plan based on daily recovery, soreness, and fatigue levels.
+- **Omnichannel Training**: Instantly adapts your daily workout for "Gym Mode" or "Home/Hotel Mode" based on available equipment.
+- **Global Dietary Support**: Native support for cultural diets like **Indian Vegetarian**, Jain, Vegan, and more.
+- **Smart Meal Swapping**: High-precision meal replacements that maintain your specific macronutrient targets.
+- **Premium Glassmorphism UI**: A high-visibility, dark-mode interface designed for use in active environments.
 
-## Getting Started
+## 🛠️ Tech Stack
 
-Follow these steps to run the application on your local machine:
+- **Core Engine**: [Llama 3.3-70B](https://groq.com/) via Groq Cloud
+- **Orchestration**: [LangChain](https://www.langchain.com/)
+- **Frontend**: [Streamlit](https://streamlit.io/)
+- **Styling**: Custom CSS (Glassmorphism & High-Visibility Design)
 
-### Prerequisites
+## 📦 Installation & Setup
 
-- Python 3.x
-- Streamlit
-- LangChain
-- Groq API Key
+To run Zenith AI locally, follow these steps:
 
-### Installation
-
-1. Clone the repository:
-
+1. **Clone the Repository**:
    ```bash
-   git clone https://github.com/vikrambhat2/AIFitnessPlanner.git
-   cd AIFitnessPlanner
-   ```
-
+   git clone https://github.com/manavmodi123/zenith-ai-fitness.git
+   cd zenith-ai-fitness
 2. Install the required dependencies:
 
    ```bash
@@ -63,7 +60,6 @@ Follow these steps to run the application on your local machine:
 ## Contributing
 
 Feel free to open issues or submit pull requests to improve this project. Contributions are welcome!
-
 
 
 
