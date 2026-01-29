@@ -1,7 +1,10 @@
 # 🏔️ Zenith AI Fitness Companion
 
+**Live Demo:** [zenith-ai-fitness.streamlit.app](https://zenith-ai-fitness.streamlit.app/)
+
 **Zenith AI** is a premium, 2026-standard fitness and nutrition agent built to help users reach their peak physical potential. Unlike static planners, Zenith adapts in real-time to your equipment, energy levels, and dietary preferences.
 
+![Zenith AI Banner](https://img.icons8.com/fluency/96/mountain.png)
 
 ## 🚀 Key Features
 
